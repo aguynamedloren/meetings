@@ -36,5 +36,16 @@ module Meetings
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # todo: debug this
+    # config.middleware.use "Rack::Cors" do
+    #   allow do
+    #     origins "http://localhost:3000"
+    #     resource '*',
+    #      :headers => :any,
+    #      :expose => ["access-token", "expiry", "token-type", "uid", "client"],
+    #      :methods => [:get, :post, :patch, :delete, :options]
+    #    end
+    #  end
   end
 end
