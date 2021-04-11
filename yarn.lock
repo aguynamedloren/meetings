@@ -1,0 +1,8 @@
+{
+  "name": "meetings",
+  "description": "meetings app",
+  "version": "1.0.0",
+  "engines": {
+    "yarn": "1.22"
+  }
+}
