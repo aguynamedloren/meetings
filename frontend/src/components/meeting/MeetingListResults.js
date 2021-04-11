@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 
-const MeetingListResults = ({ customers, ...rest }) => (
+const MeetingListResults = ({ meetings, ...rest }) => (
   <Card {...rest}>
     <CardHeader
       title="Meetings"
@@ -20,16 +20,16 @@ const MeetingListResults = ({ customers, ...rest }) => (
     <Box sx={{ minWidth: 1050 }}>
       <Table>
         <TableBody>
-          {customers.map((customer) => (
+          {meetings.map((meeting) => (
             <TableRow
               hover
-              key={customer.id}
+              key={meeting.id}
             >
               <TableCell>
-                {moment(customer.createdAt).format('DD/MM/YYYY')}
+                {moment(meeting.occurs_at).format('MM/DD/YYYY')}
               </TableCell>
               <TableCell>
-                {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                {meeting.location}
               </TableCell>
             </TableRow>
           ))}
@@ -40,7 +40,7 @@ const MeetingListResults = ({ customers, ...rest }) => (
 );
 
 MeetingListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+  meetings: PropTypes.array.isRequired
 };
 
 export default MeetingListResults;
