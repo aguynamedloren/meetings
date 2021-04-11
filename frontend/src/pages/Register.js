@@ -1,3 +1,7 @@
+import axios from 'axios';
+import { useDispatch} from 'react-redux';
+import { useState } from 'react';
+import allActions from '.././actions'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -13,7 +17,14 @@ import {
 } from '@material-ui/core';
 
 const Register = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
+  const [serverState, setServerState] = useState();
+  const handleServerResponse = (ok, msg) => {
+    setServerState({ok, msg});
+  };
+
+  const user = {name: "Loren"}
 
   return (
     <>
@@ -44,11 +55,27 @@ const Register = () => {
                 firstName: Yup.string().max(255).required('First name is required'),
                 lastName: Yup.string().max(255).required('Last name is required'),
                 password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values, actions) => {
+              const auth = {
+                first_name: values.firstName,
+                last_name: values.lastName,
+                email: values.email,
+                password: values.password,
+                password_confirmation: values.password,
+              };
+
+              axios.post("http://localhost:3001/auth/", auth)
+                .then(res => {
+                  handleServerResponse(true, "Logged In!");
+                  dispatch(allActions.userActions.setUser(user))
+                  actions.setSubmitting(false);
+                })
+                .catch(error => {
+                  handleServerResponse(false, error.response.data.errors.full_messages[0]);
+                  actions.setSubmitting(false);
+                })
             }}
           >
             {({
@@ -69,6 +96,13 @@ const Register = () => {
                     Create new account
                   </Typography>
                 </Box>
+
+                {serverState && (
+                  <Typography color={!serverState.ok ? "error.main" : "textSecondary"}>
+                    {serverState.msg}
+                  </Typography>
+                )}
+
                 <TextField
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth

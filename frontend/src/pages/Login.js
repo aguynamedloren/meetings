@@ -57,14 +57,11 @@ const Login = () => {
 
               axios.post("http://localhost:3001/auth/sign_in", auth)
                 .then(res => {
-                  console.log(res);
-                  console.log(res.data);
                   handleServerResponse(true, "Logged In!");
                   dispatch(allActions.userActions.setUser(user))
                   actions.setSubmitting(false);
                 })
                 .catch(error => {
-                  console.log(error.response)
                   handleServerResponse(false, error.response.data.errors[0]);
                   actions.setSubmitting(false);
                 })
