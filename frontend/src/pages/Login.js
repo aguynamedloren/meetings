@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -13,6 +15,10 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  const [serverState, setServerState] = useState();
+  const handleServerResponse = (ok, msg) => {
+    setServerState({ok, msg});
+  };
 
   return (
     <>
@@ -31,15 +37,31 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values, actions) => {
+              const auth = {
+                email: values.email,
+                password: values.password,
+              };
+
+              axios.post("http://localhost:3001/auth/sign_in", auth)
+                .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  handleServerResponse(true, "Logged In!");
+                  actions.setSubmitting(false);
+                })
+                .catch(error => {
+                  console.log(error.response)
+                  handleServerResponse(false, error.response.data.errors[0]);
+                  actions.setSubmitting(false);
+                })
             }}
           >
             {({
@@ -60,6 +82,13 @@ const Login = () => {
                     Sign in
                   </Typography>
                 </Box>
+
+                {serverState && (
+                  <Typography color={!serverState.ok ? "error.main" : "textSecondary"}>
+                    {serverState.msg}
+                  </Typography>
+                )}
+
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
