@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { useDispatch} from 'react-redux'
 import { useState } from 'react';
+import allActions from '.././actions'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
@@ -14,11 +16,14 @@ import {
 } from '@material-ui/core';
 
 const Login = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [serverState, setServerState] = useState();
   const handleServerResponse = (ok, msg) => {
     setServerState({ok, msg});
   };
+
+  const user = {name: "Loren"}
 
   return (
     <>
@@ -55,6 +60,7 @@ const Login = () => {
                   console.log(res);
                   console.log(res.data);
                   handleServerResponse(true, "Logged In!");
+                  dispatch(allActions.userActions.setUser(user))
                   actions.setSubmitting(false);
                 })
                 .catch(error => {

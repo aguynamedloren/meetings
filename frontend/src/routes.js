@@ -7,10 +7,10 @@ import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
 import Register from 'src/pages/Register';
 
-const routes = [
+const routes = (isLoggedIn) => [
   {
     path: 'app',
-    element: <DashboardLayout />,
+    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <Account /> },
       { path: 'meetings', element: <MeetingList /> },
@@ -19,12 +19,12 @@ const routes = [
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: !isLoggedIn ? <MainLayout /> : <Navigate to="/app/meetings" />,
     children: [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: '404', element: <NotFound /> },
-      { path: '/', element: <Navigate to="/app/meetings" /> },
+      { path: '/', element: <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }
