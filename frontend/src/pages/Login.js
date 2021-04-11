@@ -55,7 +55,7 @@ const Login = () => {
                 password: values.password,
               };
 
-              axios.post("http://localhost:3001/auth/sign_in", auth)
+              axios.post("auth/sign_in", auth)
                 .then(res => {
                   handleServerResponse(true, "Logged In!");
                   dispatch(allActions.userActions.setUser(user))

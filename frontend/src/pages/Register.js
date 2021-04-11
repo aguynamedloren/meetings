@@ -66,7 +66,7 @@ const Register = () => {
                 password_confirmation: values.password,
               };
 
-              axios.post("http://localhost:3001/auth/", auth)
+              axios.post("auth", auth)
                 .then(res => {
                   handleServerResponse(true, "Logged In!");
                   dispatch(allActions.userActions.setUser(user))
