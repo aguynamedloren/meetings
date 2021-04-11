@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useDispatch} from 'react-redux'
+import { useDispatch} from 'react-redux';
 import { useState } from 'react';
 import allActions from '.././actions'
 import { Link as RouterLink, useNavigate } from 'react-router-dom';

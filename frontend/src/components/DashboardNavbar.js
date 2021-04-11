@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
-import InputIcon from '@material-ui/icons/Input';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => (
   <AppBar
@@ -28,11 +27,6 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => (
 
       </RouterLink>
       <Box sx={{ flexGrow: 1 }} />
-      <Hidden lgDown>
-        <IconButton color="inherit">
-          <InputIcon />
-        </IconButton>
-      </Hidden>
       <Hidden lgUp>
         <IconButton
           color="inherit"

@@ -8,11 +8,10 @@ import {
   List
 } from '@material-ui/core';
 import {
-  Lock as LockIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
   Calendar as CalendarIcon
 } from 'react-feather';
+import LogoutButton from './LogoutButton'
 import NavItem from './NavItem';
 
 const items = [
@@ -25,16 +24,6 @@ const items = [
     href: '/app/account',
     icon: UserIcon,
     title: 'Account'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
   },
 ];
 
@@ -65,6 +54,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
           ))}
+          <LogoutButton />
         </List>
       </Box>
     </Box>
