@@ -4,11 +4,19 @@ import MeetingListResults from 'src/components/meeting/MeetingListResults';
 import customers from 'src/__mocks__/customers';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-
+import { useSelector } from 'react-redux';
 
 const MeetingList = () => {
+  const currentUser = useSelector((state) => state.currentUser.user);
+
   const { isLoading, error, data } = useQuery("fetchMeetings", () =>
-    axios("meetings")
+    axios.get("meetings", {
+      headers: {
+        "access-token": currentUser.accessToken,
+        "client": currentUser.client,
+        "uid": currentUser.uid,
+      }
+    })
   )
 
   let body;

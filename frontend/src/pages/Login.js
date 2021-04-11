@@ -23,8 +23,6 @@ const Login = () => {
     setServerState({ok, msg});
   };
 
-  const user = {name: "Loren"}
-
   return (
     <>
       <Helmet>
@@ -56,8 +54,16 @@ const Login = () => {
               };
 
               axios.post("auth/sign_in", auth)
-                .then(res => {
+                .then(response => {
+                  console.log(response)
                   handleServerResponse(true, "Logged In!");
+
+                  const user = {
+                    accessToken: response.headers["access-token"],
+                    client: response.headers["client"],
+                    uid: response.data.data.uid,
+                  }
+
                   dispatch(allActions.userActions.setUser(user))
                   actions.setSubmitting(false);
                 })
