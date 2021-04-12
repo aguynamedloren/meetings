@@ -10,10 +10,7 @@ class MeetingsController < ApplicationController
     meeting = current_user.meetings.find_by(id: params[:id])
 
     if meeting
-      # todo: order by owner first,
-      # then status yes
-      # then status no
-      users = meeting.user_meetings.includes(:user).map do |user_meeting|
+      users = meeting.user_meetings.priority_order.includes(:user).map do |user_meeting|
         user = user_meeting.user
 
         {

@@ -25,4 +25,14 @@ class UserMeeting < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :meeting
+
+  def self.priority_order
+    order(Arel.sql("
+        CASE
+          WHEN role = 'owner' THEN '0'
+          WHEN status = 'yes' THEN '1'
+          WHEN status = 'maybe' THEN '2'
+          WHEN status = 'no' THEN '3'
+        END"))
+  end
 end
