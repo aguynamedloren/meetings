@@ -23,7 +23,7 @@
     - role [owner, attendee]
   * [See full schema](db/schema.rb)
 
-## Bonus
+## :star: Bonus
   * Rails API backend + React SPA frontend deployed as a single app to Heroku
   * Full signup and login functionality
       - Protected routes
@@ -34,9 +34,10 @@
   * Meeting attendee sorting
       - Organizer at the top
       - Then sort by attendance status: Yes, Maybe, No
-  * Model validations
-      - Meeting date range
-      - User meeting attendance uniquness
+  * Data validations
+      - Meeting date range (start must be after end)
+      - User meeting attendance uniqueness (can't attend a meeting twice)
+      - And more!
   * UUIDs
   * Database indexes
 
