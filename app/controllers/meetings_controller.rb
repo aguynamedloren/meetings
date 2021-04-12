@@ -21,6 +21,7 @@ class MeetingsController < ApplicationController
           status: user_meeting.status,
           role: user_meeting.role,
           name: user.full_name,
+          avatar_url: user.avatar_url,
         }
       end
 

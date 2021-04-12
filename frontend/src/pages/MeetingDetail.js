@@ -179,7 +179,7 @@ const MeetingDetail = () => {
                           }}
                         >
                           <Avatar
-                            src={user.avatarUrl}
+                            src={user.avatar_url}
                             sx={{ mr: 2 }}
                           >
                           </Avatar>

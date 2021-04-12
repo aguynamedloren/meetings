@@ -14,4 +14,14 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(" ")
   end
+
+  def avatar_url
+    Faker::Avatar.image(slug: avatar_slug, size: "100x100", format: "jpg")
+  end
+
+  private
+
+  def avatar_slug
+    [full_name, id].join("").parameterize
+  end
 end
