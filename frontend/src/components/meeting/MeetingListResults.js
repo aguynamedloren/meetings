@@ -17,6 +17,19 @@ import {
 } from 'react-router-dom';
 
 const MeetingListResults = ({ meetings, ...rest }) => {
+  const rowOpacity = (meeting) => {
+    const meeting_start = moment(meeting.occurs_at);
+    const now = moment();
+
+    if (now > meeting_start) {
+      return "0.4"
+    } else if (meeting.status === "cancelled") {
+      return "0.25"
+    } else {
+      return "1.0"
+    }
+  }
+
   return (
     <Card {...rest}>
       <CardHeader
@@ -33,7 +46,7 @@ const MeetingListResults = ({ meetings, ...rest }) => {
                 component={RouterLink}
                 to={`/app/meetings/${meeting.id}`}
                 sx={{
-                  opacity: meeting.status === "cancelled" ? "0.3" : "inherit",
+                  opacity: rowOpacity(meeting),
                   textDecoration: meeting.status === "cancelled" ? "line-through" : "inherit",
                 }}
               >
