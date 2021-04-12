@@ -2,22 +2,37 @@ import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
 import MeetingListResults from 'src/components/meeting/MeetingListResults';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
 const MeetingList = () => {
   const currentUser = useSelector((state) => state.currentUser.user);
 
-  const { isLoading, error, data } = useQuery("fetchMeetings", () =>
-    axios.get("meetings", {
-      headers: {
-        "access-token": currentUser.accessToken,
-        "client": currentUser.client,
-        "uid": currentUser.uid,
+  const headers = {
+    "access-token": currentUser.accessToken,
+    "client": currentUser.client,
+    "uid": currentUser.uid,
+  }
+
+  const mutation = useMutation(
+    () => axios.post('/meetings', {}, { headers }),
+    {
+      onSuccess: () => {
+        refetch();
       }
-    })
+    }
   )
 
+  const { isLoading, error, data, refetch } = useQuery("fetchMeetings", () =>
+    axios.get("meetings", { headers })
+  )
+
+  const addMeetingClick = (event) => {
+    event.preventDefault();
+    mutation.mutate();
+  }
+
+  // todo: cleanup
   let body;
 
   if (isLoading) {
@@ -25,7 +40,10 @@ const MeetingList = () => {
   } else if (error) {
     body = <p>Error!</p>
   } else {
-    body = <MeetingListResults meetings={data.data} />
+    body = <MeetingListResults
+      meetings={data.data}
+      mutationIsLoading={mutation.isLoading}
+      addMeetingClick={addMeetingClick} />
   }
 
   return (

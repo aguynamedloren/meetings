@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   Box,
+  Button,
   Card,
   CardHeader,
   Divider,
@@ -34,6 +35,15 @@ const MeetingListResults = ({ meetings, ...rest }) => {
     <Card {...rest}>
       <CardHeader
         title="Meetings"
+        action={(
+          <Button
+            variant="contained"
+            onClick={rest.addMeetingClick}
+            disabled={rest.mutationIsLoading}
+          >
+            New Meeting
+          </Button>
+        )}
       />
       <Divider />
       <Box sx={{ minWidth: 1050 }}>

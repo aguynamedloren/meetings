@@ -34,7 +34,6 @@ import RoomOutlined from '@material-ui/icons/RoomOutlined';
 const MeetingDetail = () => {
   const { id } = useParams();
   const currentUser = useSelector((state) => state.currentUser.user);
-  const limit = 10;
 
   const { isLoading, error, data } = useQuery("fetchMeetings", () =>
     axios.get(`meetings/${id}`, {

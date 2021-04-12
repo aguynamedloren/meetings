@@ -1,6 +1,12 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
 
+  def create
+    meeting = MeetingSeeder.new(current_user.id).run
+
+    render json: meeting
+  end
+
   def index
     meetings = current_user.meetings.where(
       occurs_at: Date.today.beginning_of_day..Float::INFINITY
