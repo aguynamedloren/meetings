@@ -52,9 +52,9 @@ const MeetingListResults = ({ meetings, ...rest }) => {
             {meetings.map((meeting) => (
               <TableRow
                 hover
-                key={meeting.id}
+                key={meeting.uuid}
                 component={RouterLink}
-                to={`/app/meetings/${meeting.id}`}
+                to={`/app/meetings/${meeting.uuid}`}
                 sx={{
                   opacity: rowOpacity(meeting),
                   textDecoration: meeting.status === "cancelled" ? "line-through" : "inherit",

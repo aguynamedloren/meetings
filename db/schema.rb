@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_040459) do
+ActiveRecord::Schema.define(version: 2021_04_12_053957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "meetings", force: :cascade do |t|
     t.datetime "occurs_at", null: false
@@ -26,6 +27,8 @@ ActiveRecord::Schema.define(version: 2021_04_12_040459) do
     t.string "city", null: false
     t.string "state", null: false
     t.string "zip_code", null: false
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
+    t.index ["uuid"], name: "index_meetings_on_uuid", unique: true
   end
 
   create_table "user_meetings", force: :cascade do |t|

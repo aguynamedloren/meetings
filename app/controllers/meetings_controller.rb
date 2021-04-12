@@ -16,7 +16,7 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    meeting = current_user.meetings.find_by(id: params[:id])
+    meeting = current_user.meetings.find_by(uuid: params[:id])
 
     if meeting
       users = meeting.user_meetings.priority_order.includes(:user).map do |user_meeting|
