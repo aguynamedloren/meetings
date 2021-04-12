@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :user_meetings, dependent: :destroy
   has_many :meetings, through: :user_meetings
+
+  def full_name
+    [first_name, last_name].join(" ")
+  end
 end

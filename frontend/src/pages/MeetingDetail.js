@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import customers from 'src/__mocks__/customers';
 
 import {
   Navigate,
@@ -58,7 +57,8 @@ const MeetingDetail = () => {
     console.log("error")
     body = <Navigate to="/404" />
   } else {
-    const meeting = data.data;
+    const meeting = data.data.meeting;
+    const users = data.data.users;
 
     body =
       <Grid
@@ -166,10 +166,10 @@ const MeetingDetail = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {customers.slice(0, limit).map((customer) => (
+                  {users.map((user) => (
                     <TableRow
                       hover
-                      key={customer.id}
+                      key={user.id}
                     >
                       <TableCell>
                         <Box
@@ -179,7 +179,7 @@ const MeetingDetail = () => {
                           }}
                         >
                           <Avatar
-                            src={customer.avatarUrl}
+                            src={user.avatarUrl}
                             sx={{ mr: 2 }}
                           >
                           </Avatar>
@@ -187,12 +187,21 @@ const MeetingDetail = () => {
                             color="textPrimary"
                             variant="body1"
                           >
-                            {customer.name}
+                            { user.name}
                           </Typography>
+
+                          { user.role === "owner" &&
+                            <Typography
+                              sx={{ pl: 1 }}
+                              color="textSecondary"
+                            >
+                              (Organizer)
+                            </Typography>
+                          }
                         </Box>
                       </TableCell>
                       <TableCell>
-                        {customer.email}
+                        { _.capitalize(user.status) }
                       </TableCell>
                     </TableRow>
                   ))}
