@@ -46,7 +46,7 @@ const MeetingListResults = ({ meetings, ...rest }) => {
         )}
       />
       <Divider />
-      <Box sx={{ minWidth: 1050 }}>
+      <Box>
         <Table>
           <TableBody>
             {meetings.map((meeting) => (

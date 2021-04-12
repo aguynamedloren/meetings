@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import NotFound from './NotFound';
 
 import {
   Navigate,
@@ -19,6 +20,7 @@ import {
   Container,
   Divider,
   Grid,
+  LinearProgress,
   Table,
   TableBody,
   TableCell,
@@ -51,10 +53,9 @@ const MeetingDetail = () => {
   let body;
 
   if (isLoading) {
-    body = <p>Loading..</p>
+    body = <LinearProgress />
   } else if (error) {
-    console.log("error")
-    body = <Navigate to="/404" />
+    body = <NotFound />
   } else {
     const meeting = data.data.meeting;
     const users = data.data.users;

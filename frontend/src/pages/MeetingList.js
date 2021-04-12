@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, LinearProgress } from '@material-ui/core';
 import MeetingListResults from 'src/components/meeting/MeetingListResults';
 import axios from 'axios';
 import { useMutation, useQuery } from 'react-query';
@@ -32,11 +32,10 @@ const MeetingList = () => {
     mutation.mutate();
   }
 
-  // todo: cleanup
   let body;
 
   if (isLoading) {
-    body = <p>Loading..</p>
+    body = <LinearProgress />
   } else if (error) {
     body = <p>Error!</p>
   } else {

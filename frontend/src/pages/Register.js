@@ -67,9 +67,16 @@ const Register = () => {
               };
 
               axios.post("auth", auth)
-                .then(res => {
+                .then(response => {
                   handleServerResponse(true, "Logged In!");
-                  dispatch(allActions.userActions.setUser(user))
+
+                  const user = {
+                    accessToken: response.headers["access-token"],
+                    client: response.headers["client"],
+                    uid: response.data.data.uid,
+                  }
+
+                  dispatch(allActions.userActions.setUser(user));
                   actions.setSubmitting(false);
                 })
                 .catch(error => {

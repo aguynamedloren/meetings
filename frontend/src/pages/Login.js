@@ -55,7 +55,6 @@ const Login = () => {
 
               axios.post("auth/sign_in", auth)
                 .then(response => {
-                  console.log(response)
                   handleServerResponse(true, "Logged In!");
 
                   const user = {
