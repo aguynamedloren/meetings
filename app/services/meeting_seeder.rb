@@ -1,4 +1,8 @@
 class MeetingSeeder
+  DAYTIME_HOURS = (7..18).to_a
+  MEETING_ATTENDEES = (3..8).to_a
+  MEETING_INCREMENTS = [15, 30, 45, 60]
+
   def initialize(owner_id)
     @owner = User.find(owner_id)
   end
@@ -22,15 +26,29 @@ class MeetingSeeder
   end
 
   def seed_meeting
+    starts_at =
+      Faker::Date.between(from: Date.today, to: Date.today + 14.days) +
+      DAYTIME_HOURS.sample.hours +
+      MEETING_INCREMENTS.sample.minutes
+
+    ends_at = starts_at + MEETING_INCREMENTS.sample.minutes
+
+    statuses = [
+      Meeting::ACTIVE,
+      Meeting::ACTIVE,
+      Meeting::CANCELLED,
+    ]
+
     @meeting = Meeting.create!(
-      occurs_at: Faker::Time.between_dates(from: Time.now, to: Time.now + 14.days, period: :day),
-      status: Meeting::STATUSES.sample,
+      occurs_at: starts_at,
+      ends_at: ends_at,
+      status: statuses.sample,
       location: [Faker::Address.city, Faker::Address.state_abbr].join(", "),
     )
   end
 
   def seed_meeting_attendees
-    (3..8).to_a.sample.times do
+    MEETING_ATTENDEES.sample.times do
       user = User.create!(
         email: Faker::Internet.unique.email,
         first_name: Faker::Name.first_name,

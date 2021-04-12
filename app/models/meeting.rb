@@ -9,6 +9,7 @@ class Meeting < ActiveRecord::Base
     CANCELLED,
   ]
 
+  validates :ends_at, presence: true
   validates :location, presence: true
   validates :occurs_at, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES }

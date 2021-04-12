@@ -103,6 +103,8 @@ const MeetingDetail = () => {
                     variant="body2"
                   >
                     { moment(meeting.occurs_at).format('MMMM Do YYYY, h:mm A') }
+                    { " - " }
+                    { moment(meeting.ends_at).format('h:mm A') }
                   </Typography>
                 </Grid>
                 <Grid
