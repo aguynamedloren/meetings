@@ -1,21 +1,37 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
-import MeetingListResults from 'src/components/meeting/MeetingListResults';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
-const MeetingList = () => {
+import {
+  Navigate,
+  useParams
+} from "react-router-dom";
+
+import {
+  Box,
+  Card,
+  CardHeader,
+  Container,
+  Divider
+} from '@material-ui/core';
+
+const MeetingDetail = () => {
+  const { id } = useParams();
   const currentUser = useSelector((state) => state.currentUser.user);
 
   const { isLoading, error, data } = useQuery("fetchMeetings", () =>
-    axios.get("meetings", {
+    axios.get(`meetings/${id}`, {
       headers: {
         "access-token": currentUser.accessToken,
         "client": currentUser.client,
         "uid": currentUser.uid,
       }
-    })
+    }),
+    {
+      retry: false,
+    }
   )
 
   let body;
@@ -23,9 +39,23 @@ const MeetingList = () => {
   if (isLoading) {
     body = <p>Loading..</p>
   } else if (error) {
-    body = <p>Error!</p>
+    console.log("error")
+    body = <Navigate to="/404" />
   } else {
-    body = <MeetingListResults meetings={data.data} />
+    const meeting = data.data;
+
+    body =
+      <Card>
+        <CardHeader
+          title="Meeting"
+        />
+        <Divider />
+        <Box sx={{ minWidth: 1050 }}>
+          This is a meeting
+          { moment(meeting.occurs_at).format('MM/DD/YYYY') }
+          { meeting.location }
+        </Box>
+      </Card>
   }
 
   return (
@@ -48,4 +78,4 @@ const MeetingList = () => {
   );
 }
 
-export default MeetingList;
+export default MeetingDetail;

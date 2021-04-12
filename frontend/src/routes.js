@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
+import MeetingDetail from 'src/pages/MeetingDetail';
 import MeetingList from 'src/pages/MeetingList';
 import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
@@ -14,6 +15,7 @@ const routes = (isLoggedIn) => [
     children: [
       { path: 'account', element: <Account /> },
       { path: 'meetings', element: <MeetingList /> },
+      { path: 'meetings/:id', element: <MeetingDetail /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
@@ -23,9 +25,15 @@ const routes = (isLoggedIn) => [
     children: [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
-      { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
+    ]
+  },
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      { path: '404', element: <NotFound /> },
     ]
   }
 ];
