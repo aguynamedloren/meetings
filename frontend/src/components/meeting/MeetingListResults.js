@@ -1,3 +1,4 @@
+import _ from "lodash";
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
@@ -16,11 +17,6 @@ import {
 } from 'react-router-dom';
 
 const MeetingListResults = ({ meetings, ...rest }) => {
-  const handleClick = (meeting) => {
-    console.log("meeting clicked")
-    console.log(meeting)
-  };
-
   return (
     <Card {...rest}>
       <CardHeader
@@ -36,12 +32,19 @@ const MeetingListResults = ({ meetings, ...rest }) => {
                 key={meeting.id}
                 component={RouterLink}
                 to={`/app/meetings/${meeting.id}`}
+                sx={{
+                  opacity: meeting.status === "cancelled" ? "0.3" : "inherit",
+                  textDecoration: meeting.status === "cancelled" ? "line-through" : "inherit",
+                }}
               >
                 <TableCell>
                   { moment(meeting.occurs_at).format('MMMM Do YYYY, h:mm A') }
                 </TableCell>
                 <TableCell>
-                  {meeting.location}
+                  { meeting.location }
+                </TableCell>
+                <TableCell>
+                  { _.capitalize(meeting.status) }
                 </TableCell>
               </TableRow>
             ))}

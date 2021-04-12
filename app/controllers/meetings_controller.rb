@@ -2,7 +2,10 @@ class MeetingsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    meetings = current_user.meetings
+    meetings = current_user.meetings.where(
+      occurs_at: Date.today.beginning_of_day..Float::INFINITY
+    ).order("occurs_at ASC")
+
     render json: meetings
   end
 
