@@ -38,7 +38,7 @@ const MeetingListResults = ({ meetings, ...rest }) => {
                 to={`/app/meetings/${meeting.id}`}
               >
                 <TableCell>
-                  {moment(meeting.occurs_at).format('MM/DD/YYYY')}
+                  { moment(meeting.occurs_at).format('MMMM Do YYYY, h:mm A') }
                 </TableCell>
                 <TableCell>
                   {meeting.location}
