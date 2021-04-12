@@ -18,7 +18,7 @@ class UserMeeting < ActiveRecord::Base
     MAYBE,
   ]
 
-  validates :user_id, presence: true
+  validates :user_id, presence: true, uniqueness: { scope: :meeting_id }
   validates :meeting_id, presence: true
   validates :role, presence: true, inclusion: { in: ROLES }
   validates :status, presence: true, inclusion: { in: STATUSES }
