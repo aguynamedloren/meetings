@@ -2,6 +2,13 @@ class MeetingSeeder
   DAYTIME_HOURS = (7..18).to_a
   MEETING_ATTENDEES = (3..8).to_a
   MEETING_INCREMENTS = [15, 30, 45, 60]
+  MEETING_STATUSES_WEIGHTED = [
+    Meeting::ACTIVE,
+    Meeting::ACTIVE,
+    Meeting::ACTIVE,
+    Meeting::CANCELLED,
+    Meeting::CANCELLED,
+  ]
 
   def initialize(owner_id)
     @owner = User.find(owner_id)
@@ -28,23 +35,24 @@ class MeetingSeeder
   end
 
   def seed_meeting
-    starts_at =
-      Faker::Date.between(from: Date.today, to: Date.today + 14.days) +
-      DAYTIME_HOURS.sample.hours +
-      MEETING_INCREMENTS.sample.minutes
+    if owner.meetings.empty?
+      starts_at = Date.today.beginning_of_day + 7.hours + MEETING_INCREMENTS.sample.minutes
+      status = Meeting::ACTIVE
+    else
+      starts_at =
+        Faker::Date.between(from: Date.today, to: Date.today + 14.days) +
+        DAYTIME_HOURS.sample.hours +
+        MEETING_INCREMENTS.sample.minutes
+
+      status = MEETING_STATUSES_WEIGHTED.sample
+    end
 
     ends_at = starts_at + MEETING_INCREMENTS.sample.minutes
-
-    statuses = [
-      Meeting::ACTIVE,
-      Meeting::ACTIVE,
-      Meeting::CANCELLED,
-    ]
 
     @meeting = Meeting.create!(
       occurs_at: starts_at,
       ends_at: ends_at,
-      status: statuses.sample,
+      status: status,
       street_address: Faker::Address.street_address,
       secondary_address: Faker::Address.secondary_address,
       city: Faker::Address.city,
