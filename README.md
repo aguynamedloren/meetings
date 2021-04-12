@@ -1,15 +1,6 @@
 ## Heroku app
   :rocket: Sign up and check it out: http://thawing-harbor-12947.herokuapp.com/
 
-## Schema
-  * Users
-  * Meetings
-    - status [active, cancelled]
-  * UserMeetings (join between User and Meetings)
-    - status [yes, no, maybe]
-    - role [owner, attendee]
-  * [See full schema](db/schema.rb)
-
 ## Backend
   * Rails 6 API
   * Postgres Database
@@ -22,6 +13,15 @@
   * [Material UI Kit theme](https://material-ui.com/store/items/devias-kit/)
   * Redux for managing user session (synced to localStorage)
   * React Query for data fetching
+
+## Schema
+  * Users
+  * Meetings
+    - status [active, cancelled]
+  * UserMeetings (join between User and Meetings)
+    - status [yes, no, maybe]
+    - role [owner, attendee]
+  * [See full schema](db/schema.rb)
 
 ## Bonus
   * Rails API backend + React SPA frontend deployed as a single app to Heroku
