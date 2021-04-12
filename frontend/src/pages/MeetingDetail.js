@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { useQuery } from 'react-query';
@@ -28,6 +29,7 @@ import {
 } from '@material-ui/core';
 
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import OfflineBoltOutlined from '@material-ui/icons/OfflineBoltOutlined';
 import RoomOutlined from '@material-ui/icons/RoomOutlined';
 
 const MeetingDetail = () => {
@@ -119,6 +121,24 @@ const MeetingDetail = () => {
                     variant="body2"
                   >
                     { meeting.location }
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    alignItems: 'center',
+                    display: 'flex'
+                  }}
+                >
+                  <OfflineBoltOutlined color="action" />
+                  <Typography
+                    color="textSecondary"
+                    display="inline"
+                    sx={{ pl: 1 }}
+                    variant="body2"
+                  >
+                    Status: { _.capitalize(meeting.status) }
                   </Typography>
                 </Grid>
                 </Grid>
