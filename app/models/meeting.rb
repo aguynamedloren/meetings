@@ -10,7 +10,10 @@ class Meeting < ActiveRecord::Base
   ]
 
   validates :ends_at, presence: true
-  validates :location, presence: true
+  validates :street_address, presence: true
+  validates :city, presence: true
+  validates :state, presence: true
+  validates :zip_code, presence: true
   validates :occurs_at, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES }
 

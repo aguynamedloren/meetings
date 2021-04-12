@@ -56,7 +56,7 @@ const MeetingListResults = ({ meetings, ...rest }) => {
                   { moment(meeting.ends_at).format('h:mm A') }
                 </TableCell>
                 <TableCell>
-                  { meeting.location }
+                  { `${meeting.city}, ${meeting.state}` }
                 </TableCell>
                 <TableCell>
                   { _.capitalize(meeting.status) }

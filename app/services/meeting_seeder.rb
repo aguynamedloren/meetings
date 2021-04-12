@@ -11,6 +11,8 @@ class MeetingSeeder
     seed_meeting
     add_owner_to_meeting
     seed_meeting_attendees
+
+    return meeting
   end
 
   private
@@ -43,7 +45,11 @@ class MeetingSeeder
       occurs_at: starts_at,
       ends_at: ends_at,
       status: statuses.sample,
-      location: [Faker::Address.city, Faker::Address.state_abbr].join(", "),
+      street_address: Faker::Address.street_address,
+      secondary_address: Faker::Address.secondary_address,
+      city: Faker::Address.city,
+      state: Faker::Address.state_abbr,
+      zip_code: Faker::Address.zip_code,
     )
   end
 

@@ -122,7 +122,8 @@ const MeetingDetail = () => {
                     sx={{ pl: 1 }}
                     variant="body2"
                   >
-                    { meeting.location }
+                    <p>{ `${meeting.street_address}, ${meeting.secondary_address}` }</p>
+                    <p>{ `${meeting.city}, ${meeting.state} ${meeting.zip_code}` }</p>
                   </Typography>
                 </Grid>
                 <Grid
