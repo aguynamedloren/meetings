@@ -20,11 +20,6 @@ const items = [
     icon: CalendarIcon,
     title: 'Meetings'
   },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
