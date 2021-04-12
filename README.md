@@ -1,5 +1,5 @@
 ## Heroku app
-  Sign up and check it out: http://thawing-harbor-12947.herokuapp.com/
+  :rocket: Sign up and check it out: http://thawing-harbor-12947.herokuapp.com/
 
 ## Schema
   * Users
@@ -8,7 +8,7 @@
   * UserMeetings (join between User and Meetings)
     - status [yes, no, maybe]
     - role [owner, attendee]
-  * ![See full schema](db/schema.rb)
+  * [See full schema](db/schema.rb)
 
 ## Backend
   * Rails 6 API
@@ -17,9 +17,9 @@
   * Faker gem for seed data
 
 ## Frontend
-  * React 17 SPA
-  * ![Material-UI component library](https://material-ui.com/)
-  * ![Material UI Kit theme](https://material-ui.com/store/items/devias-kit/)
+  * React 17 Single Page Application
+  * [Material-UI component library](https://material-ui.com/)
+  * [Material UI Kit theme](https://material-ui.com/store/items/devias-kit/)
   * Redux for managing user session (synced to localStorage)
   * React Query for data fetching
 
@@ -39,3 +39,6 @@
       - User meeting attendance uniquness
   * UUIDs
   * Database indexes
+
+![screenshot-1](readme-images/screenshot-1.png)
+![screenshot-2](readme-images/screenshot-2.png)
