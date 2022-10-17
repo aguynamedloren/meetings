@@ -17,8 +17,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "yarn": "^1.22.19"
-  }
+  "license": "ISC"
 }
