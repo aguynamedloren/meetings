@@ -1,6 +1,3 @@
-## Heroku app
-  :rocket: Sign up and check it out: http://thawing-harbor-12947.herokuapp.com/
-
 ## Backend
   * Rails 6 API
   * Postgres Database
